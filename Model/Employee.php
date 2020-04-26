@@ -1,8 +1,9 @@
 <?php
 
+require_once "Model/Database.php";
 
-class Employee extends User{
-    private $username;
+class Employee{
+    private $email;
     private $password_hashed;
     private $first_name;
     private $last_lame;
@@ -13,23 +14,22 @@ class Employee extends User{
      * @param $password
      */
     public function __construct($email, $password) {
-        $this->username = $email;
+        $this->email = $email;
         $this->password_hashed = hash('sha256', $password);
-        print $this->password_hashed;
     }
 
     /**
      * @return mixed
      */
-    public function getUsername() {
-        return $this->username;
+    public function getEmail() {
+        return $this->email;
     }
 
     /**
      * @param mixed $username
      */
-    public function setUsername($username) {
-        $this->username = $username;
+    public function setEmail($email) {
+        $this->email = $email;
     }
 
     /**
@@ -47,7 +47,7 @@ class Employee extends User{
     }
 
     public function processLogin() {
-        return false;
-        return true;
+        $database = Database::getInstance();
+        return $database->select("SELECT COUNT(*) as cnt FROM user WHERE email=:email AND password_hash=:passw ;", array(":email" => $this->email, ":passw" => $this->password_hashed))[0]['cnt'] == '1';
     }
 }

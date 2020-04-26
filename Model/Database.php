@@ -50,26 +50,15 @@ class Database
      * @param array $paramArray
      * @return array
      */
-    public function select($query, $paramType="", $paramArray=array())
+    public function select($query, $paramArray=array())
     {
         $stmt = $this->conn->prepare($query);
 
-        if(!empty($paramType) && !empty($paramArray)) {
-            $this->bindQueryParams($stmt, $paramType, $paramArray);
-        }
+        for ($i=0; $i < sizeof(array_keys($paramArray)); $i++)
+            $stmt->bindParam(array_keys($paramArray)[$i], $paramArray[array_keys($paramArray)[$i]]);
 
         $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $resultset[] = $row;
-            }
-        }
-
-        if (! empty($resultset)) {
-            return $resultset;
-        }
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -79,11 +68,13 @@ class Database
      * @param array $paramArray
      * @return int
      */
-    public function insert($query, $paramType, $paramArray)
+    public function insert($query, $paramArray)
     {
-        print $query;
         $stmt = $this->conn->prepare($query);
-        $this->bindQueryParams($stmt, $paramType, $paramArray);
+
+        for ($i=0; $i < sizeof(array_keys($paramArray)); $i++)
+            $stmt->bindParam(array_keys($paramArray)[$i], $paramArray[array_keys($paramArray)[$i]]);
+
         $stmt->execute();
         $insertId = $stmt->insert_id;
         return $insertId;
@@ -114,7 +105,7 @@ class Database
      */
     public function bindQueryParams($stmt, $paramType, $paramArray=array())
     {
-        $paramValueReference[] = & $paramType;
+        $paramValueReference[] = &$paramType;
         for ($i = 0; $i < count($paramArray); $i ++) {
             $paramValueReference[] = & $paramArray[$i];
         }

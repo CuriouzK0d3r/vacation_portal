@@ -13,14 +13,31 @@
 </div>
 
 <?php
- require_once 
+session_start();
+ require_once "Model/Applications.php";
+
+ $past_appls = Applications::getInstance()->getApplicationsForUser($_SESSION["email"]);
+
 ?>
 
 <div class="container">
-    Past Applications
+    <h3 style="text-align: center;padding-bottom: 30px">Past Applications</h3>
     <ul class="list-group">
-        <li class="list-group-item"></li>
+        <div class="row">
+            <div class="col" style="font-weight: bold">Date Submitted </div> <div class="col" style="font-weight: bold">Date From</div>
+            <div class="col" style="font-weight: bold">Date To</div> <div class="col" style="font-weight: bold">Days Requested</div>  <div class="col" style="font-weight: bold"> Status </div></div></li>
+        <?php
+        foreach ($past_appls as $app) {
+            ?>
+            <li class="list-group-item"> <div class="row">
+                    <div class="col"><? print $app['date_submitted'] ?></div> <div class="col"><? print $app['date_from'] ?>
+                    </div> <div class="col"><? print $app['date_to'] ?></div> <div class="col"><? print $app['days_requested'] ?></div>
+                    <div class="col"> <? print $app['status'] ?> </div></li>
+ <?php  }
+?>
+
     </ul>
+    <a style="margin-top: 30px; width: 50%" href="application_form.php" class="btn btn-primary btn-lg active" role="button" aria-disabled="true">Submit Request</a>
 </div>
 <script>
     const validate = ()  => {

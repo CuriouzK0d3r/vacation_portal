@@ -10,11 +10,14 @@ body {
     height: 100vh;
 }
 
-a {
-    color: #92badd;
-    display:inline-block;
+span.error {
+    color: #bf0606;
+    display:block;
     text-decoration: none;
     font-weight: 400;
+    height: 100%;
+    position: relative;
+    top: -20px;
 }
 
 h2 {
@@ -47,7 +50,7 @@ h2 {
     background: #fff;
     padding: 30px;
     width: 90%;
-    max-width: 450px;
+    max-width: 750px;
     /*position: relative;*/
     padding: 0px;
     -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
@@ -58,7 +61,8 @@ h2 {
 #formFooter {
     background-color: #f6f6f6;
     border-top: 1px solid #dce8f1;
-    padding: 25px;
+    padding: 45px;
+    height: 25px;
     text-align: center;
     -webkit-border-radius: 0 0 10px 10px;
     border-radius: 0 0 10px 10px;
@@ -258,5 +262,5 @@ input[type=text]:placeholder {
 }
 
 #icon {
-    width:60%;
+    width:30%;
 }

@@ -8,26 +8,41 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Welcome to *Epignosis* Vacation Portal</h1>
-    <p>Please login to apply for vacation</p>
+    <h1>*Epignosis* Vacation Portal</h1>
+    <p>Submit request for vacations</p>
 </div>
 
 <div class="container">
 
     <div class="wrapper fadeInDown">
-        <div id="formContent">
-            <!-- Tabs Titles -->
-
-            <!-- Icon -->
+        <div id="formContent" style="padding-top: 15px">
             <div class="fadeIn first">
-                <img width="10" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/User_font_awesome.svg" id="icon" alt="User Icon" />
+                <h3>Request Form</h3>
             </div>
-
             <!-- Login Form -->
-            <form action="" method="post" id="formApplication" name="formApplication" onSubmit="return validate();">
-                <input type="text" id="login" class="fadeIn second" name="login" placeholder="Email">
-                <input type="text" id="password" class="fadeIn third" name="password" placeholder="Password">
-                <input type="submit" class="fadeIn fourth" value="Log In">
+            <form action="submit_application.php" method="post" id="formApplication" name="formApplication" onSubmit="return validate();">
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-3 col-form-label">Date From</label>
+                    <div class="col-8">
+                        <input name="datefrom" class="form-control" type="date" value="2020-01-11" id="datefrom">
+                    </div>
+                </div>
+                <div cla
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-3 col-form-label">Date To</label>
+                    <div class="col-8">
+                        <input name="dateto" class="form-control" type="date" value="2020-01-11" id="dateto">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div style="padding-left: 30px" class=" col-3">
+                        <label for="example-date-input" class="col-form-label">Reason</label>
+                    </div>
+                    <div class="col-8">
+                    <textarea name="reason" id="reason"  class="form-control" aria-label="With textarea"></textarea>
+                    </div>
+                </div>
+                <input type="submit" class=" fourth" value="Submit">
             </form>
 
             <div id="formFooter">
@@ -50,15 +65,21 @@
 </div>
 <script>
     const validate = ()  => {
-        const userName = document.getElementById("login").value;
-        const password = document.getElementById("password").value;
+        const date1 = document.getElementById("datefrom").value;
+        const date2 = document.getElementById("dateto").value;
+        const reason = document.getElementById("reason").value;
 
-        if ( userName === "" ) {
-            document.querySelector('.error').innerHTML = "Email Missing!";
+        if ( date1 === "" ) {
+            document.querySelector('.error').innerHTML = "Date Missing!";
             return false;
         }
-        if ( password === "" ) {
-            document.querySelector('.error').innerHTML = "Password Missing!";
+        if ( date2 === "" ) {
+            document.querySelector('.error').innerHTML = "Date Missing!";
+            return false;
+        }
+
+        if ( reason === "" ) {
+            document.querySelector('.error').innerHTML = "Reason Missing!";
             return false;
         }
 
