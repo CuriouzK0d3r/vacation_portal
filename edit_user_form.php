@@ -14,9 +14,15 @@
     <h1>*Epignosis* Vacation Portal</h1>
     <p>Update User Status</p>
 </div>
+<div class="text-right" style="margin-right: 70px">
+    <a href="./logout.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Log Out</a>
+</div>
 
 <?php
 session_start();
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: ./index.php');
+}
 require_once "Model/Users.php";
 $user_email = $_GET['email'];
 $user = Users::getInstance()->getUserByEmail($user_email)[0];
@@ -50,6 +56,7 @@ $user = Users::getInstance()->getUserByEmail($user_email)[0];
 
                 </div>
                 <input type="submit" class=" fourth" value="Update">
+                <a href="./admin_portal.php" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Go Back</a>
             </form>
 
             <div id="formFooter">

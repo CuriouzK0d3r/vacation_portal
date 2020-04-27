@@ -53,11 +53,11 @@ class Database
     public function select($query, $paramArray=array())
     {
         $stmt = $this->conn->prepare($query);
-
         for ($i=0; $i < sizeof(array_keys($paramArray)); $i++)
             $stmt->bindParam(array_keys($paramArray)[$i], $paramArray[array_keys($paramArray)[$i]]);
 
         $stmt->execute();
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -76,8 +76,7 @@ class Database
             $stmt->bindParam(array_keys($paramArray)[$i], $paramArray[array_keys($paramArray)[$i]]);
 
         $stmt->execute();
-        $insertId = $stmt->insert_id;
-        return $insertId;
+        return $this->conn->lastInsertId();
     }
 
     /**

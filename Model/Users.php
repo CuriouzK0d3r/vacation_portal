@@ -36,7 +36,6 @@ class Users
     public function updateUser($id, $firstname, $lastname, $email, $type)
     {
         $database = Database::getInstance();
-        print_r($id);
         return $database->insert("UPDATE user SET first_name='{$firstname}', last_name='{$lastname}', email='{$email}', type='{$type}' WHERE id='{$id}' ", array());; // Dangerous! Possible SQLi.
     }
 
@@ -47,7 +46,7 @@ class Users
 
     public function addUser($fname, $lname, $email, $pass, $type) {
         $database = Database::getInstance();
-        $hashed  = hash('sha256', $pass);;
+        $hashed  = hash('sha256', $pass);
         try {
             $database->insert("INSERT INTO user (first_name, last_name, password_hash, email, type) VALUES ('{$fname}', '{$lname}', '{$hashed}', '{$email}', '{$type}');",
                 array( )); // Dangerous! Possible SQLi.

@@ -6,7 +6,8 @@ class Employee{
     private $email;
     private $password_hashed;
     private $first_name;
-    private $last_lame;
+    private $last_name;
+    private $type;
 
     /**
      * Employee constructor.
@@ -16,6 +17,23 @@ class Employee{
     public function __construct($email, $password) {
         $this->email = $email;
         $this->password_hashed = hash('sha256', $password);
+        $database = Database::getInstance();
+        $resp = $database->select("SELECT * FROM user WHERE email=:email AND password_hash=:passw ;", array(":email" => $this->email, ":passw" => $this->password_hashed))[0];
+        $this->type = $resp['type'];
+        $this->first_name = $resp['first_name'];
+        $this->last_name = $resp['last_name'];
+    }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function getFirstName() {
+        return $this->first_name;
+    }
+
+    public function getLastName() {
+        return $this->last_name;
     }
 
     /**
@@ -48,6 +66,6 @@ class Employee{
 
     public function processLogin() {
         $database = Database::getInstance();
-        return $database->select("SELECT COUNT(*) as cnt FROM user WHERE email=:email AND password_hash=:passw ;", array(":email" => $this->email, ":passw" => $this->password_hashed))[0]['cnt'] == '1';
+        return intval($database->select("SELECT COUNT(*) as cnt FROM user WHERE email=:email AND password_hash=:passw ;", array(":email" => $this->email, ":passw" => $this->password_hashed))[0]['cnt']) > 0;
     }
 }

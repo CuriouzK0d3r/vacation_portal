@@ -14,7 +14,9 @@
     <h1>*Epignosis* Vacation Portal</h1>
     <p>Create Users</p>
 </div>
-
+<div class="text-right" style="margin-right: 70px">
+    <a href="./logout.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Log Out</a>
+</div>
 <div class="container">
 
     <div class="wrapper fadeInDown">
@@ -48,14 +50,19 @@
                     </select>
 
                 </div>
-                <input type="submit" class=" fourth" value="Update">
+                <input type="submit" class=" fourth" value="Create">
+                <a href="./admin_portal.php" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Go Back</a>
             </form>
 
             <div id="formFooter">
                 <span class="error" >
                 <?php
                 session_start();
-
+                if (!isset($_SESSION['loggedin'])) {
+                    header('Location: ./index.php');
+                }
+                if ($_SESSION["type"] != "admin")
+                    header('Location: ./vacations.php');
                 if(isset($_SESSION["errorMessage"])) {
                     ?>
                     <?php  echo $_SESSION["errorMessage"]; ?>

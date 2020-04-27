@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: ./index.php');
+}
 require_once "Model/Users.php";
 
 $action = $_GET['action'];

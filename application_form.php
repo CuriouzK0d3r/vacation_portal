@@ -11,7 +11,9 @@
     <h1>*Epignosis* Vacation Portal</h1>
     <p>Submit request for vacations</p>
 </div>
-
+<div class="text-right" style="margin-right: 70px">
+    <a href="./logout.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Log Out</a>
+</div>
 <div class="container">
 
     <div class="wrapper fadeInDown">
@@ -42,14 +44,16 @@
                     <textarea name="reason" id="reason"  class="form-control" aria-label="With textarea"></textarea>
                     </div>
                 </div>
-                <input type="submit" class=" fourth" value="Submit">
+                <input type="submit" class=" fourth" value="Submit"> <a href="./vacations.php" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Go Back</a>
             </form>
 
             <div id="formFooter">
                 <span class="error" >
                 <?php
                 session_start();
-
+                if (!isset($_SESSION['loggedin'])) {
+                    header('Location: ./index.php');
+                }
                 if(isset($_SESSION["errorMessage"])) {
                     ?>
                     <?php  echo $_SESSION["errorMessage"]; ?>

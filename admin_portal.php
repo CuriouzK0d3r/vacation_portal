@@ -8,14 +8,21 @@
 </head>
 <body>
 <div class="jumbotron text-center">
-    <h1>Welcome !</h1>
+    <h1>Welcome <?php session_start(); print $_SESSION['fname']; ?> !</h1>
     <p>You can view the list of users or create a new one</p>
 </div>
-
+<div class="text-right" style="margin-right: 70px">
+    <a href="./logout.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Log Out</a>
+</div>
 <?php
 session_start();
-require_once "Model/Users.php";
 
+require_once "Model/Users.php";
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: ./index.php');
+}
+if ($_SESSION["type"] != "admin")
+    header('Location: ./vacations.php');
 $users = Users::getInstance()->getAllUsers();
 
 ?>
