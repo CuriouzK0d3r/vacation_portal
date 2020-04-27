@@ -27,10 +27,16 @@ class Users
         return self::$instance;
     }
 
+    public function getAdmin()
+    {
+        $database = Database::getInstance();
+        return $database->select("SELECT * FROM user WHERE type='admin'", array())[0];
+    }
+
     public function getUserByEmail($email)
     {
         $database = Database::getInstance();
-        return $database->select("SELECT * FROM user WHERE email=:email", array(":email" => $email));;
+        return $database->select("SELECT * FROM user WHERE email=:email", array(":email" => $email));
     }
 
     public function updateUser($id, $firstname, $lastname, $email, $type)

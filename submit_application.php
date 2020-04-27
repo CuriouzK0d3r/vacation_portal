@@ -6,9 +6,11 @@ if (!isset($_SESSION['loggedin'])) {
 }
 
 require_once "Model/Applications.php";
+require_once "Model/Users.php";
+
 
 $id = Applications::getInstance()->addApplication($_POST['datefrom'], $_POST['dateto'], $_POST['reason'], $_SESSION['email']);
-
+$admin_mail = Users::getInstance()->getAdmin()['email'];
 $mail_body = "
 Dear supervisor, employee {$_SESSION['fname']} {$_SESSION['lname']} requested for some time off, starting on {$_POST['datefrom']} and ending on {$_POST['dateto']}, stating the reason:
 {$_POST['reason']}.
@@ -17,7 +19,7 @@ Dear supervisor, employee {$_SESSION['fname']} {$_SESSION['lname']} requested fo
 ";
 
 $from = "admin@vacations.com";
-$to = "admin@vacations.com";
+$to = $admin_mail;
 $subject = "Vacation Application";
 $headers = "From:" . $from;
 mail($to, $subject, $mail_body, $headers);

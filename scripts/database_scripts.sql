@@ -2,6 +2,9 @@ CREATE DATABASE vacation_db;
 
 USE vacation_db;
 
+DROP TABLE Application;
+DROP TABLE User;
+
 CREATE TABLE `User` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `first_name` varchar(255),
@@ -23,5 +26,4 @@ CREATE TABLE `Application` (
    FOREIGN KEY (user_id) REFERENCES USER(id)
 );
 
-INSERT INTO user (first_name, last_name, password_hash, email, type)  VALUES ('alex', 'k', 'adadadadadadaa', 's', 'employee')
-INSERT INTO application (date_submitted, date_from, date_to, Reason, days_requested, user_id, status) VALUES (NOW(), DATE_ADD(now(), INTERVAL 2 DAY), DATE_ADD(now(), INTERVAL 12 DAY), 'tired', 10, 1, 'pending');
+INSERT INTO user (first_name, last_name, password_hash, email, type)  VALUES ('Curiouz', 'K0d3r', '13d249f2cb4127b40cfa757866850278793f814ded3c587fe5889e889a7a9f6c', 'my@mail.gr', 'admin');
