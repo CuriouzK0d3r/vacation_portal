@@ -110,7 +110,7 @@
             return false;
         }
 
-        if ( cpass != pass ) {
+        if ( cpass !== pass ) {
             document.querySelector('.error').innerHTML = "Passwords Missmatch!";
             return false;
         }
